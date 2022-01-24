@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<div>
+    <div>
+        <button>
+            <a href="/home">Back to homepage</a>
+        </button>
+    </div>
+    <div>
+        <form action="/create" method="post">
+            <table th:object="${blog}">
+                <tr>
+                    <th>Name</th>
+                    <th>Content</th>
+                    <th>Category</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" th:field="*{name}">
+                    </td>
+                    <td>
+                        <textarea th:field="*{content}"></textarea>
+                    </td>
+                    <td>
+                        <select name="category_id">
+                            <option th:each="c,loop:${category}" th:value="${c.id}" th:text="${c.name}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <p ><input th:field="*{date}" hidden></p>
+                <p ><input th:field="*{id}" hidden></p>
+            </table>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

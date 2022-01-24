@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+<div>
+    <div>
+        <button>
+            <a href="/create">Add new blog</a>
+        </button>
+    </div>
+    <div>
+        <form action="/search">
+            <input type="text" name="search">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div>
+        <h2>Blog list</h2>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Content</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="b,loop:${list}">
+                <td>
+                    <a th:href="@{/details/{id}(id=${b.id})}" th:text="${b.id}"></a>
+                </td>
+                <td>
+                    <a th:href="@{/details/{id}(id=${b.id})}" th:text="${b.name}"></a>
+                </td>
+                <td>
+                    <a th:href="@{/details/{id}(id=${b.id})}" th:text="${b.content}"></a>
+                </td>
+                <td th:text="${b.category.name}"></td>
+                <td th:text="${b.date}"></td>
+                <td>
+                    <button>
+                        <a th:href="@{/edit/{id}(id=${b.id})}">Edit</a>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <button th:if="${list.hasPrevious()}">
+            <a th:href="@{/home/(page=${list.number}-1)}">Previous</a>
+        </button>
+    </div>
+    </td>
+    <td>
+        <div>
+            <b th:text="${list.number} + 1"></b>/<b th:text="${list.totalPages}"></b>
+        </div>
+    </td>
+    <td>
+        <div>
+            <button th:if="${list.hasNext()}">
+                <a th:href="@{/home/(page=${list.number}+1}">Next</a>
+            </button>
+    </div>
+</div>
+</body>
+</html>
